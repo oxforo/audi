@@ -1,24 +1,35 @@
 package com.pseudonym.audi.controller;
 
+import com.pseudonym.audi.dto.MailAuthDto;
 import com.pseudonym.audi.dto.MailDto;
 import com.pseudonym.audi.service.MailService;
 import lombok.AllArgsConstructor;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
-@Controller
+import javax.validation.Valid;
+
+@RestController
 @AllArgsConstructor
+@RequestMapping(value = "/mail")
 public class MailController {
-    private final MailService mailService;
+    private MailService mailService;
 
-    @GetMapping("/mail")
-    public String dispMail() {
-        return "mail";
+    @PostMapping("/auth")
+    public ResponseEntity getMailAuth(@Valid  @RequestBody MailDto mailDto) {
+        boolean isSend = mailService.sendMailAuth(mailDto);
+        return ResponseEntity.ok(isSend);
     }
 
-    @PostMapping("/mail")
-    public void executeMail(MailDto mailDto) {
-        mailService.mailSend(mailDto);
+    @PutMapping("/auth")
+    public ResponseEntity activeMailAuth(@Valid @ModelAttribute MailAuthDto mailAuthDto) {
+        boolean isValidMailAuth = mailService.validMailAuth(mailAuthDto);
+        return ResponseEntity.ok(isValidMailAuth);
+    }
+
+    @PostMapping("/otp")
+    public ResponseEntity getMailOTP(@Valid @RequestBody MailDto mailDto) {
+        boolean isSend = mailService.sendMailOTP(mailDto);
+        return ResponseEntity.ok(isSend);
     }
 }

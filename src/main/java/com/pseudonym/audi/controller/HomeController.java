@@ -6,13 +6,16 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class HomeController {
 
+
     @GetMapping("/")
     public String home() {
         return "home";
     }
 
-    @GetMapping("/member/new")
+    @GetMapping("/users/new")
     public String createFrom() {
-        return "/member/createMemberForm";
+        return "users/createUserForm";
     }
+
+
 }

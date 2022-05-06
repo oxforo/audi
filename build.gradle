@@ -13,17 +13,57 @@ repositories {
 }
 
 dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
-	implementation 'org.projectlombok:lombok:1.18.18'
+
+	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+
+	//Spring Security
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+
+	//lombok
+	implementation 'org.projectlombok:lombok:1.18.22'
+    implementation 'org.jetbrains:annotations:20.1.0'
+    annotationProcessor('org.projectlombok:lombok')
+
+	//Repo ( mysql, jpa)
 	runtimeOnly 'mysql:mysql-connector-java'
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-	implementation 'org.springframework.boot:spring-boot-starter-mail'
-	// https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt
-	// implementation group: 'io.jsonwebtoken', name: 'jjwt', version: '0.9.1'
 
+	//bean validation
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
+
+	//HATEOAS
+	implementation 'org.springframework.boot:spring-boot-starter-hateoas'
+
+	//swagger
+	implementation 'io.springfox:springfox-boot-starter:3.0.0'
+
+	//random string
+	implementation 'org.apache.commons:commons-lang3:3.12.0'
+
+	// email
+	implementation 'org.springframework.boot:spring-boot-starter-mail'
+
+	//jwt
+	implementation group: 'io.jsonwebtoken', name: 'jjwt', version: '0.9.1'
+
+	// otp
+	implementation 'commons-codec:commons-codec:1.15'
+	implementation 'de.taimos:totp:1.0'
+	implementation 'com.google.zxing:javase:3.4.1'
+
+	//logging
+	implementation 'org.springframework.boot:spring-boot-starter-log4j2'
+
+	//test
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
+}
+
+configurations {
+	all {
+		exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
+	}
 }
 
 tasks.named('test') {
